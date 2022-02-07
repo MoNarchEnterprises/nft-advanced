@@ -1,8 +1,1 @@
-{
-    "name": "DEKU_DEKUPOOL",
-    "description": "My Hero Academia prom picture of DEKU x DEKUPOOL",
-    "image_uri": "https://ipfs.io/ipfs/QmfLTkhU5MaZqGJyudzFCck386m46XvnZWEmnhk13wg4sV?filename=deku_dekupool.JPG",
-    "attributes": [
-        {}
-    ]
-}
+{"name": "DEKU_DEKUPOOL", "description": "My Hero Academia prom picture of DEKU_DEKUPOOL", "image_uri": "https://ipfs.io/ipfs/QmfLTkhU5MaZqGJyudzFCck386m46XvnZWEmnhk13wg4sV?filename=deku_dekupool.JPG", "attributes": [{"coolness": 100}]}

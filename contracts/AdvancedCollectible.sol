@@ -36,24 +36,36 @@ contract AdvancedCollectible is ERC721, VRFConsumerBase {
         fee = _fee;
     }
 
-    function createCollectible() public returns (bytes32) {
+    function createRandomCollectible() public returns (bytes32) {
         bytes32 requestId = requestRandomness(keyhash, fee);
         requestIdToSender[requestId] = msg.sender;
         emit requestedCollectible(requestId, msg.sender);
+    }
+
+    function createCollectible(uint256 index) public {
+        createCollectibleNFT(msg.sender, index);
     }
 
     function fulfillRandomness(bytes32 requestId, uint256 randomNumber)
         internal
         override
     {
-        MHA mha = MHA(randomNumber % 3);
+        address sender = requestIdToSender[requestId];
+        uint256 tokenId = createCollectibleNFT(sender, randomNumber);
+        emit tokenAssigned(tokenId, tokenIdToMHA[tokenId]);
+    }
+
+    function createCollectibleNFT(address sender, uint256 index)
+        internal
+        returns (uint256)
+    {
+        MHA mha = MHA(index % 3);
         uint256 newTokenId = tokenCounter;
         tokenIdToMHA[newTokenId] = mha;
-        emit tokenAssigned(newTokenId, mha);
-        address sender = requestIdToSender[requestId];
         _safeMint(sender, newTokenId);
         //_setTokenURI(newTokenId, tokenURI);
         tokenCounter = tokenCounter + 1;
+        return newTokenId;
     }
 
     function setTokenURI(uint256 tokenId, string memory _tokenURI) public {

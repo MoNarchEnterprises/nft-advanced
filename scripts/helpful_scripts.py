@@ -24,10 +24,19 @@ NFT_IMAGE_URI_MAPPING = {
     1: "https://ipfs.io/ipfs/QmWf8Xc7buM5njS6i1ZamEGFitQ4YKu3V2cRXx6uNWYf8y?filename=TokyamixAsui.JPG",
     2: "https://ipfs.io/ipfs/QmfLTkhU5MaZqGJyudzFCck386m46XvnZWEmnhk13wg4sV?filename=deku_dekupool.JPG",
 }
+NFT_METADATA_URI_MAPPING = {
+    0: "https://ipfs.io/ipfs/QmRUYjXXwnhfa8mkNoiCUDyJBUTuroZfudGsN9iHAeCFAQ",  # ?filename=0-DEKU.json",
+    1: "https://ipfs.io/ipfs/QmZmqbVrG86aTzGfkuXjr4ehMoYNpv3eizQjznVSWHuR6d",  # ?filename=1-TOKYAMIxASUI.json",
+    2: "https://ipfs.io/ipfs/QmdoyEVej9AyjQWN9o5gChUQqn6nt2iWt7oDE87STKaFHQ",  # ?filename=2-DEKU_DEKUPOOL.json",
+}
 
 
 def get_nft_data(index_number):
-    return NFT_MAPPING[index_number], NFT_IMAGE_URI_MAPPING[index_number]
+    return (
+        NFT_MAPPING[index_number],
+        NFT_IMAGE_URI_MAPPING[index_number],
+        NFT_METADATA_URI_MAPPING[index_number],
+    )
 
 
 def get_publish_source():

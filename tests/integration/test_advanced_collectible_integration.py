@@ -1,13 +1,12 @@
 from brownie import network, AdvancedCollectible, config
 import pytest
 from scripts.advanced_collectible.deploy_and_create import (
-    deploy_and_create,
-    get_contract,
+    deploy,
+    create,
 )
 from scripts.helpful_scripts import (
     LOCAL_BLOCKCHAIN_ENVIRONMENTS,
     get_account,
-    get_contract,
 )
 import time
 
@@ -21,7 +20,8 @@ def test_can_create_NFT_integration():
         pytest.skip("Only for testnet testing")
     account = get_account()
     # Act
-    advanced_collectible, vrf_tx = deploy_and_create()
+    deploy()
+    advanced_collectible, vrf_tx = create(-1)
     time.sleep(300)
     # Assert
     assert advanced_collectible.tokenCounter() >= 1

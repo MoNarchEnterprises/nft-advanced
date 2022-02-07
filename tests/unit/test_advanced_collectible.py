@@ -1,7 +1,8 @@
 from brownie import network, AdvancedCollectible, config
 import pytest
 from scripts.advanced_collectible.deploy_and_create import (
-    deploy_and_create,
+    deploy,
+    create,
     get_contract,
 )
 from scripts.helpful_scripts import (
@@ -20,10 +21,11 @@ def test_can_create_NFT():
         pytest.skip("Only for local testing")
     account = get_account()
     # Act
-    advanced_collectible, vrf_tx = deploy_and_create()
+    deploy()
+    advanced_collectible, vrf_tx = create(-1)
     requestId = vrf_tx.events["requestedCollectible"]["requestId"]
     vrf_coordinator = get_contract("vrf_coordinator")
-    random_number = 420691
+    random_number = 42069
     vrf_coordinator.callBackWithRandomness(
         requestId, random_number, advanced_collectible.address, {"from": account}
     )

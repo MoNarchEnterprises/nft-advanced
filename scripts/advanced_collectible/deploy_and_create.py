@@ -8,9 +8,9 @@ from scripts.helpful_scripts import (
 from brownie import AdvancedCollectible, config, network
 
 
-def deploy_and_create():
+def deploy():
     account = get_account()
-    advanced_collectible = AdvancedCollectible.deploy(
+    AdvancedCollectible.deploy(
         get_contract("vrf_coordinator"),
         get_contract("link_token"),
         config["networks"][network.show_active()]["keyhash"],
@@ -20,9 +20,18 @@ def deploy_and_create():
         {"from": account},
         publish_source=get_publish_source(),
     )
-    fund_with_link(advanced_collectible.address)
-    tx_create_nft = advanced_collectible.createCollectible({"from": account})
-    tx_create_nft.wait(1)
+
+
+def create(index):
+    account = get_account()
+    advanced_collectible = AdvancedCollectible[-1]
+    if index == -1:
+        fund_with_link(advanced_collectible.address)
+        tx_create_nft = advanced_collectible.createRandomCollectible({"from": account})
+        tx_create_nft.wait(1)
+    else:
+        tx_create_nft = advanced_collectible.createCollectible(index, {"from": account})
+        tx_create_nft.wait(1)
     print(
         f"You can view your NFT at {OPENSEA_URL.format(advanced_collectible.address,advanced_collectible.tokenCounter()-1)}"
     )
@@ -30,4 +39,7 @@ def deploy_and_create():
 
 
 def main():
-    deploy_and_create()
+    deploy()
+    # create(-1)
+    for index in range(3):
+        create(index)

@@ -9,8 +9,10 @@ def set_token_uri():
     number_of_nfts = advanced_collectible.tokenCounter()
     print(f"You have {number_of_nfts} NFTs")
     for token_id in range(number_of_nfts):
-        mha, nft_uri = get_nft_data(advanced_collectible.tokenIdToMHA(token_id))
-        if not advanced_collectible.tokenURI(token_id).startswith("https://"):
+        mha, img_uri, nft_uri = get_nft_data(
+            advanced_collectible.tokenIdToMHA(token_id)
+        )
+        if True:  # not advanced_collectible.tokenURI(token_id).startswith("https://"):
             account = get_account()
             tx = advanced_collectible.setTokenURI(token_id, nft_uri, {"from": account})
             tx.wait(1)

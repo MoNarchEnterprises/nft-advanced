@@ -10,7 +10,9 @@ def create_metadata():
     number_of_nfts = advanced_collectible.tokenCounter()
     print(f"You have created {number_of_nfts} NFT")
     for token_id in range(number_of_nfts):
-        mha, img_uri = get_nft_data(advanced_collectible.tokenIdToMHA(token_id))
+        (mha, img_uri, metadata_uri) = get_nft_data(
+            advanced_collectible.tokenIdToMHA(token_id)
+        )
         metadata_filename = f"./metadata/{network.show_active()}/{token_id}-{mha}.json"
         nft_metadata = metadata_template
         if Path(metadata_filename).exists():
